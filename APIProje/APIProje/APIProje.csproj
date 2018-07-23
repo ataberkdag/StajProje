@@ -201,10 +201,10 @@
     <EmbeddedResource Include="Sınıflar\Database.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Eklentiler\twitListAPI.dll" />
+    <Content Include="Eklentiler\youtubeListAPI.dll" />
     <Content Include="Sınıflar\Project.hbm.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Eklentiler\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

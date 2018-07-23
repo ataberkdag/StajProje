@@ -128,6 +128,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnaForm.Designer.cs">
+      <DependentUpon>AnaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sınıflar\Database.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -155,6 +161,9 @@
     <Compile Include="Sınıflar\settingsClass.cs" />
     <Compile Include="Sınıflar\TaskControl.cs" />
     <Compile Include="Sınıflar\ThreadKontrol.cs" />
+    <EmbeddedResource Include="AnaForm.resx">
+      <DependentUpon>AnaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

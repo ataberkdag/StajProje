@@ -54,8 +54,7 @@ namespace APIProje
         {
             if (!string.IsNullOrEmpty(searchWord) && !string.IsNullOrEmpty(searchUser))
             {
-                getDataFromDLL(searchWord, 1); // string kelime, int tür
-                getDataFromDLL(searchUser, 2);
+                getDatasFromDLL(searchWord, searchUser);
             }
             else if (!string.IsNullOrEmpty(searchUser))
             {
@@ -64,6 +63,47 @@ namespace APIProje
             else if (!string.IsNullOrEmpty(searchWord))
             {
                 getDataFromDLL(searchWord, 1);
+            }
+        }
+
+        public async void getDatasFromDLL(string keyword, string user)
+        {
+            foreach (var dllFile in dllFiles)
+            {
+                Task<DataTable> taskUser;
+
+                try
+                {
+                    taskUser = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(user));
+                }
+                catch(Exception)
+                {
+                    lock (deadLockController)
+                    {
+                        taskUser = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(user));
+                    }
+                }
+                taskControl.AddToQueue(taskUser);
+            }
+            while (taskControl.GetRunningTaskCount() != 0) { }
+            taskControl.controller = 1;
+
+            foreach (var dllFile in dllFiles)
+            {
+                Task<DataTable> taskKeyword;
+
+                try
+                {
+                    taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+                }
+                catch (Exception)
+                {
+                    lock (deadLockController)
+                    {
+                        taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+                    }
+                }
+                taskControl.AddToQueue(taskKeyword);
             }
         }
 

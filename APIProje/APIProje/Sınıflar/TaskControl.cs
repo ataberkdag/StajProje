@@ -11,7 +11,7 @@ namespace APIProje.Sınıflar
     public delegate void myDel(DataTable dataTable);
     class TaskControl
     {
-        private int controller = 1;
+        public int controller = 1;
         public event myDel taskEvent;
         private int maxThread;
         private List<Task<DataTable>> Queue = new List<Task<DataTable>>();
@@ -30,6 +30,10 @@ namespace APIProje.Sınıflar
             this.maxThread = maxThread;
         }
 
+        public int GetRunningTaskCount()
+        {
+            return RunningList.Count();
+        }
         public void AddToQueue(Task<DataTable> task)
         {
             lock (lockObject)

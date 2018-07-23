@@ -41,7 +41,7 @@ namespace APIProje
         {
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
-            catalog.Catalogs.Add(new DirectoryCatalog("C:\\Users\\ataberk.dagdelen\\source\\repos\\APIProje\\APIProje\\Eklentiler"));
+            catalog.Catalogs.Add(new DirectoryCatalog("C:\\Users\\ataberk.dagdelen\\Documents\\StajProje\\APIProje\\APIProje\\Eklentiler"));
             _container = new CompositionContainer(catalog);
 
             try

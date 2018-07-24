@@ -20,50 +20,21 @@ namespace APIProje
 {
     public partial class mainForm : Form
     {
-        private Sınıflar.DLLCount dllCounter = new Sınıflar.DLLCount();
+        private Sınıflar.AraKatman araKatman = new Sınıflar.AraKatman();
         public double percent = 0;
         public int counter = 0;
         public int dataCount = 0;
         public int maxTask;
-
+        public int dllCount;
         public mainForm()
         {
             InitializeComponent();
+            dllCount = araKatman.DLLCounter();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchAll("Search");
-        }
-
-        public async void SearchAll(string jobType)
-        {
-            string[] settingsList = SearchSettings();
-            ISchedulerFactory schFac = new StdSchedulerFactory();
-            IScheduler sched = await schFac.GetScheduler();
-
-            sched.Start();
-
-            if (jobType.Equals("Search"))
-            {
-                IJobDetail job = JobBuilder.Create<AnaClass> ()
-                    .WithIdentity("word", "group1")
-                    .Build();
-
-                job.JobDataMap.Put("searchWord", settingsList[0]);
-                job.JobDataMap.Put("searchUser", settingsList[1]);
-                job.JobDataMap.Put("mainForm",mainForm.ActiveForm);
-
-                ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("trigger1", "group1")
-                .WithSimpleSchedule(x => x.WithIntervalInSeconds(Convert.ToInt32(settingsList[2])).RepeatForever())
-                .Build();
-
-                sched.ScheduleJob(job, trigger);
-
-            }
-            else sched.Shutdown();
-
+            araKatman.SearchAll("Search");
         }
 
         private string[] SearchSettings()
@@ -141,7 +112,7 @@ namespace APIProje
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            SearchAll("Stop");
+            araKatman.SearchAll("Stop");
         }
 
         private void menuItemSecenekler_Click(object sender, EventArgs e)
@@ -183,12 +154,12 @@ namespace APIProje
 
                 if (!string.IsNullOrEmpty(searchWord) && !string.IsNullOrEmpty(searchUser))
                 {
-                    percent += (50.0 / dllCounter.dllFiles.Count());
+                    percent += (50.0 / dllCount);
                     mainProgressBar.Value = (int)percent;
                 }
                 else
                 {
-                    percent += (100.0 / (dllCounter.dllFiles.Count()));
+                    percent += (100.0 / dllCount);
                     mainProgressBar.Value = (int)percent;
                 }
                 counter++;
@@ -227,7 +198,7 @@ namespace APIProje
         private void mainForm_Load(object sender, EventArgs e)
         {
             
-            lblDll.Text = "DLL Sayısı: " + dllCounter.dllFiles.Count();
+            lblDll.Text = "DLL Sayısı: " + dllCount;
         }
 
         private void bilgilerToolStripMenuItem_Click(object sender, EventArgs e)

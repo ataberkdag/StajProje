@@ -134,6 +134,7 @@
     <Compile Include="AnaForm.Designer.cs">
       <DependentUpon>AnaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sınıflar\AraKatman.cs" />
     <Compile Include="Sınıflar\Database.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

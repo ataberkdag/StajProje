@@ -41,6 +41,7 @@
             this.lblDll = new System.Windows.Forms.Label();
             this.lblTask = new System.Windows.Forms.Label();
             this.lblDataCount = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -59,6 +60,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.comboBox1);
             this.panel3.Controls.Add(this.btnSearch);
             this.panel3.Controls.Add(this.btnStop);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -71,7 +73,7 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnSearch.Location = new System.Drawing.Point(119, 13);
+            this.btnSearch.Location = new System.Drawing.Point(192, 13);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(200, 56);
             this.btnSearch.TabIndex = 0;
@@ -82,7 +84,7 @@
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnStop.Location = new System.Drawing.Point(325, 13);
+            this.btnStop.Location = new System.Drawing.Point(426, 13);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(200, 56);
             this.btnStop.TabIndex = 1;
@@ -180,6 +182,19 @@
             this.lblDataCount.TabIndex = 7;
             this.lblDataCount.Text = "Veri Sayısı:";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Kelime",
+            "Kullanıcı",
+            "Tümü"});
+            this.comboBox1.Location = new System.Drawing.Point(36, 31);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 8;
+            this.comboBox1.Text = "Arama Türü";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -226,5 +241,6 @@
         private System.Windows.Forms.Label lblDll;
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblDataCount;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

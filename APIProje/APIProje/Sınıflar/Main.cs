@@ -26,6 +26,12 @@ namespace APIProje
 
         public ListAPI Social { get; set; }
 
+        public enum searchType
+        {
+            word = 1,
+            user = 2
+        }
+
         public AnaClass()
         {
             var catalog = new AggregateCatalog();
@@ -41,17 +47,19 @@ namespace APIProje
         }
         private void SelectSearchType(string searchWord, string searchUser)
         {
+            
             if (!string.IsNullOrEmpty(searchWord) && !string.IsNullOrEmpty(searchUser))
             {
                 getDatasFromDLL(searchWord, searchUser);
             }
             else if (!string.IsNullOrEmpty(searchUser))
             {
-                getDataFromDLL(searchUser, 2);
+                getDataFromDLL(searchUser, Convert.ToInt32(searchType.user));
             }
             else if (!string.IsNullOrEmpty(searchWord))
             {
-                getDataFromDLL(searchWord, 1);
+                Console.WriteLine(Convert.ToInt32(searchType.word));
+                getDataFromDLL(searchWord, Convert.ToInt32(searchType.word));
             }
         }
 
@@ -60,7 +68,6 @@ namespace APIProje
             foreach (var dllFile in dllFiles)
             {
                 Task<DataTable> taskUser;
-
                 try
                 {
                     taskUser = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(user));
@@ -75,12 +82,15 @@ namespace APIProje
                 taskControl.AddToQueue(taskUser);
             }
             while (taskControl.GetRunningTaskCount() != 0) { }
-            taskControl.controller = 1;
+            datasKeyword(keyword);
+        }
 
+        private void datasKeyword(string keyword)
+        {
+            taskControl.controller = 1;
             foreach (var dllFile in dllFiles)
             {
                 Task<DataTable> taskKeyword;
-
                 try
                 {
                     taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));

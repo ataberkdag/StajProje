@@ -13,20 +13,27 @@ namespace APIProje.Sınıflar
     class AraKatman
     {
         private DLLCount dllCounter = new DLLCount();
+        private SearchSettings searchSett = new SearchSettings();
         public string AramaTuru;
         private bool aramaDurumu = true;
+
+        public enum appStatus
+        {
+            Start = 1,
+            Stop = 2
+        }
 
         public async void SearchAll(string jobType)
         {
             aramaDurumu = true;
-            string[] settingsList = SearchSettings();
+            SetSearchSettings();
 
             ISchedulerFactory schFac = new StdSchedulerFactory();
             IScheduler sched = await schFac.GetScheduler();
 
             sched.Start();
 
-            if (jobType.Equals("Search"))
+            if (jobType.Equals(appStatus.Start.ToString()))
             {
                 IJobDetail job = JobBuilder.Create<AnaClass>()
                     .WithIdentity("word", "group1")
@@ -34,7 +41,7 @@ namespace APIProje.Sınıflar
 
                 ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("trigger1", "group1")
-                .WithSimpleSchedule(x => x.WithIntervalInSeconds(Convert.ToInt32(settingsList[2])).RepeatForever())
+                .WithSimpleSchedule(x => x.WithIntervalInSeconds(searchSett.sleepTime).RepeatForever())
                 .Build();
 
                 job.JobDataMap.Put("mainForm", AnaForm.ActiveForm);
@@ -49,24 +56,24 @@ namespace APIProje.Sınıflar
 
         private void JobSettings(IJobDetail job)
         {
-            string[] settingsList = SearchSettings();
-            string word = settingsList[0];
-            string user = settingsList[1];
+            SetSearchSettings();
+            string word = searchSett.searchWord;
+            string user = searchSett.searchUser;
 
             if (AramaTuru == "Kelime" && !string.IsNullOrEmpty(word))
             {
-                job.JobDataMap.Put("searchWord", settingsList[0]);
+                job.JobDataMap.Put("searchWord", word);
                 job.JobDataMap.Put("searchUser", "");
             }
             else if (AramaTuru == "Kullanıcı" && !string.IsNullOrEmpty(user))
             {
-                job.JobDataMap.Put("searchUser", settingsList[1]);
+                job.JobDataMap.Put("searchUser", user);
                 job.JobDataMap.Put("searchWord", "");
             }
             else if (AramaTuru == "Tümü" && (!string.IsNullOrEmpty(word) && !string.IsNullOrEmpty(user)))
             {
-                job.JobDataMap.Put("searchWord", settingsList[0]);
-                job.JobDataMap.Put("searchUser", settingsList[1]);
+                job.JobDataMap.Put("searchWord", word);
+                job.JobDataMap.Put("searchUser", user);
             }
             else
             {
@@ -75,9 +82,8 @@ namespace APIProje.Sınıflar
             }
         }
 
-        private string[] SearchSettings()
+        private void SetSearchSettings()
         {
-            string[] settingsList = new string[3];
             try
             {
                 XmlTextReader xmlReader = new XmlTextReader("System.config");
@@ -86,20 +92,22 @@ namespace APIProje.Sınıflar
                     if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "SearchWord")
                     {
                         xmlReader.Read();
-                        if (!string.IsNullOrWhiteSpace(xmlReader.Value)) settingsList[0] = xmlReader.Value;
-                        else settingsList[0] = "";
+                        if (!string.IsNullOrWhiteSpace(xmlReader.Value)) searchSett.searchWord = xmlReader.Value;
+                        else searchSett.searchWord = "";
                     }
                     else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "SearchUser")
                     {
                         xmlReader.Read();
-                        if (!string.IsNullOrWhiteSpace(xmlReader.Value)) settingsList[1] = xmlReader.Value;
-                        else settingsList[1] = "";
+                        if (!string.IsNullOrWhiteSpace(xmlReader.Value)) searchSett.searchUser = xmlReader.Value;
+                        else searchSett.searchUser = "";
                     }
                     else if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "SleepTime")
                     {
                         xmlReader.Read();
-                        if (!string.IsNullOrWhiteSpace(xmlReader.Value)) settingsList[2] = xmlReader.Value;
-                        else settingsList[2] = "";
+                        if (!string.IsNullOrWhiteSpace(xmlReader.Value))
+                            searchSett.sleepTime = Convert.ToInt32(xmlReader.Value);
+
+                        else searchSett.sleepTime = 0;
                     }
                 }
                 xmlReader.Close();
@@ -108,7 +116,6 @@ namespace APIProje.Sınıflar
             {
                 Console.WriteLine(ex.Message);
             }
-            return settingsList;
         }
 
         public int DLLCounter()

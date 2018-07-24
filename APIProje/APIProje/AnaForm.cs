@@ -13,6 +13,12 @@ namespace APIProje
 {
     public partial class AnaForm : Form
     {
+        public enum appStatus
+        {
+            Start = 1,
+            Stop = 2
+        }
+
         private Sınıflar.AraKatman araKatman = new Sınıflar.AraKatman();
         public double percent = 0;
         public int counter = 0;
@@ -34,12 +40,12 @@ namespace APIProje
             lblDLL.Text = "DLL Sayısı: " + araKatman.DLLCounter();
             tekrarSayısı = 0;
             araKatman.AramaTuru = cbType.Text;
-            araKatman.SearchAll("Search");
+            araKatman.SearchAll(appStatus.Start.ToString());
         }
 
         private void btnDurdur_Click(object sender, EventArgs e)
         {
-            araKatman.SearchAll("Stop");
+            araKatman.SearchAll(appStatus.Stop.ToString());
         }
 
         private void btnSeçenekler_Click(object sender, EventArgs e)

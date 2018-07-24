@@ -50,7 +50,7 @@ namespace APIProje
 
         private void btnSeçenekler_Click(object sender, EventArgs e)
         {
-            FormSettings settingsForm = new FormSettings();
+            Settings settingsForm = new Settings();
             settingsForm.Show();
         }
 

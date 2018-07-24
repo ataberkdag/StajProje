@@ -48,8 +48,6 @@ namespace APIProje
             araKatman.SearchAll(appStatus.Stop.ToString());
         }
 
-
-
         private void btnSeçenekler_Click(object sender, EventArgs e)
         {
             Settings settingsForm = new Settings();

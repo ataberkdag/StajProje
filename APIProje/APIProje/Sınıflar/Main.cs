@@ -1,24 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Util.Store;
-using Google.Apis.YouTube.v3;
-using Google.Apis.Upload;
-using Newtonsoft.Json;
 using System.Threading;
 using System.Windows.Forms;
 using Quartz;
 using Quartz.Impl;
 using System.Data;
-using System.Drawing;
-using System.Diagnostics;
-using System.Xml;
 using ISocialList;
 namespace APIProje
 {

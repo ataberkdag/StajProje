@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 namespace APIProje.Sınıflar
@@ -12,15 +13,14 @@ namespace APIProje.Sınıflar
     class AraKatman
     {
         private DLLCount dllCounter = new DLLCount();
-
-        public void Search()
-        {
-
-        }
+        public string AramaTuru;
+        private bool aramaDurumu = true;
 
         public async void SearchAll(string jobType)
         {
+            aramaDurumu = true;
             string[] settingsList = SearchSettings();
+
             ISchedulerFactory schFac = new StdSchedulerFactory();
             IScheduler sched = await schFac.GetScheduler();
 
@@ -32,20 +32,47 @@ namespace APIProje.Sınıflar
                     .WithIdentity("word", "group1")
                     .Build();
 
-                job.JobDataMap.Put("searchWord", settingsList[0]);
-                job.JobDataMap.Put("searchUser", settingsList[1]);
-                job.JobDataMap.Put("mainForm", mainForm.ActiveForm);
-
                 ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("trigger1", "group1")
                 .WithSimpleSchedule(x => x.WithIntervalInSeconds(Convert.ToInt32(settingsList[2])).RepeatForever())
                 .Build();
 
-                sched.ScheduleJob(job, trigger);
+                job.JobDataMap.Put("mainForm", mainForm.ActiveForm);
 
+                JobSettings(job);
+
+                if (aramaDurumu == true) sched.ScheduleJob(job, trigger);
             }
             else sched.Shutdown();
 
+        }
+
+        private void JobSettings(IJobDetail job)
+        {
+            string[] settingsList = SearchSettings();
+            string word = settingsList[0];
+            string user = settingsList[1];
+
+            if (AramaTuru == "Kelime" && !string.IsNullOrEmpty(word))
+            {
+                job.JobDataMap.Put("searchWord", settingsList[0]);
+                job.JobDataMap.Put("searchUser", "");
+            }
+            else if (AramaTuru == "Kullanıcı" && !string.IsNullOrEmpty(user))
+            {
+                job.JobDataMap.Put("searchUser", settingsList[1]);
+                job.JobDataMap.Put("searchWord", "");
+            }
+            else if (AramaTuru == "Tümü" && (!string.IsNullOrEmpty(word) && !string.IsNullOrEmpty(user)))
+            {
+                job.JobDataMap.Put("searchWord", settingsList[0]);
+                job.JobDataMap.Put("searchUser", settingsList[1]);
+            }
+            else
+            {
+                MessageBox.Show("Türe uygun veriler belirtilmemiş!");
+                aramaDurumu = false;
+            }
         }
 
         private string[] SearchSettings()

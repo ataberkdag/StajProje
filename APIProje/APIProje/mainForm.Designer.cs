@@ -30,6 +30,7 @@
         {
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbType = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.mainProgressBar = new System.Windows.Forms.ProgressBar();
@@ -41,7 +42,6 @@
             this.lblDll = new System.Windows.Forms.Label();
             this.lblTask = new System.Windows.Forms.Label();
             this.lblDataCount = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -60,7 +60,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.comboBox1);
+            this.panel3.Controls.Add(this.cbType);
             this.panel3.Controls.Add(this.btnSearch);
             this.panel3.Controls.Add(this.btnStop);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -69,6 +69,19 @@
             this.panel3.Size = new System.Drawing.Size(658, 81);
             this.panel3.TabIndex = 0;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // cbType
+            // 
+            this.cbType.FormattingEnabled = true;
+            this.cbType.Items.AddRange(new object[] {
+            "Kelime",
+            "Kullanıcı",
+            "Tümü"});
+            this.cbType.Location = new System.Drawing.Point(36, 31);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(121, 24);
+            this.cbType.TabIndex = 8;
+            this.cbType.Text = "Tümü";
             // 
             // btnSearch
             // 
@@ -182,19 +195,6 @@
             this.lblDataCount.TabIndex = 7;
             this.lblDataCount.Text = "Veri Sayısı:";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Kelime",
-            "Kullanıcı",
-            "Tümü"});
-            this.comboBox1.Location = new System.Drawing.Point(36, 31);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 8;
-            this.comboBox1.Text = "Arama Türü";
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -241,6 +241,6 @@
         private System.Windows.Forms.Label lblDll;
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblDataCount;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbType;
     }
 }

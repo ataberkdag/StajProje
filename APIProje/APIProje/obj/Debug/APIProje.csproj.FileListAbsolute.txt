@@ -308,4 +308,3 @@ C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIPro
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.csproj.CopyComplete
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.exe
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.pdb
-C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.AnaForm.resources

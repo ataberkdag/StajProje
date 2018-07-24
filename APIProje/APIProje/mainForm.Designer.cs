@@ -42,6 +42,7 @@
             this.lblDll = new System.Windows.Forms.Label();
             this.lblTask = new System.Windows.Forms.Label();
             this.lblDataCount = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -195,11 +196,22 @@
             this.lblDataCount.TabIndex = 7;
             this.lblDataCount.Text = "Veri Sayısı:";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(270, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 557);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblDataCount);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainLayout);
@@ -242,5 +254,6 @@
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblDataCount;
         private System.Windows.Forms.ComboBox cbType;
+        private System.Windows.Forms.Button button1;
     }
 }

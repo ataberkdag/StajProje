@@ -133,10 +133,11 @@ namespace APIProje
             var dataMap = context.MergedJobDataMap; 
             taskControl.SetMaxThread(6);
             
-            mainForm MainForm = (mainForm)dataMap.Get("mainForm");
+            AnaForm MainForm = (AnaForm)dataMap.Get("mainForm");
             MainForm.percent = 0;
             MainForm.counter = 0;
             MainForm.dataCount = 0;
+            MainForm.tekrarSayısı++;
             mainClassEvent += MainForm.AddToGrid; // Event eklendi.
 
             taskControl.taskEvent += CreateDataGridView; // Event eklendi.

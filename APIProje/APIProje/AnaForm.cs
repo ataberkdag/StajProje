@@ -1,47 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace APIProje
 {
-    public partial class mainForm : Form
+    public partial class AnaForm : Form
     {
         private Sınıflar.AraKatman araKatman = new Sınıflar.AraKatman();
         public double percent = 0;
         public int counter = 0;
         public int dataCount = 0;
-        public int maxTask;
-        public int dllCount;
-        public mainForm()
+        public int tekrarSayısı = 0;
+
+        public AnaForm()
         {
             InitializeComponent();
-            
+            lblDLL.Text = "DLL Sayısı: " + araKatman.DLLCounter();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void AnaForm_Load(object sender, EventArgs e)
         {
+        }
+
+        private void btnAra_Click(object sender, EventArgs e)
+        {
+            lblDLL.Text = "DLL Sayısı: " + araKatman.DLLCounter();
+            tekrarSayısı = 0;
             araKatman.AramaTuru = cbType.Text;
             araKatman.SearchAll("Search");
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void btnDurdur_Click(object sender, EventArgs e)
         {
             araKatman.SearchAll("Stop");
         }
 
-        private void menuItemSecenekler_Click(object sender, EventArgs e)
+        private void btnSeçenekler_Click(object sender, EventArgs e)
         {
             FormSettings settingsForm = new FormSettings();
             settingsForm.Show();
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         public void AddToGrid(DataGridView dataGridView)
@@ -50,10 +54,10 @@ namespace APIProje
 
             LayoutEkle(dataGridView);
             ProgressBarEkle();
-            
-            lblDataCount.BeginInvoke((ThreadStart)delegate ()
+
+            lblVeri.BeginInvoke((ThreadStart)delegate ()
             {
-                lblDataCount.Text = "Veri Sayısı: " + dataCount;
+                lblVeri.Text = "Veri Sayısı: " + dataCount;
             });
         }
 
@@ -63,18 +67,19 @@ namespace APIProje
             {
                 if (counter == 0)
                 {
+                    lblTekrar.Text = "Tekrar Sayısı: " + tekrarSayısı;
                     percent = 0;
                     mainProgressBar.Value = 0;
                 }
 
                 if (araKatman.AramaTuru == "Tümü")
                 {
-                    percent += (50.0 / dllCount);
+                    percent += (50.0 / araKatman.DLLCounter());
                     mainProgressBar.Value = (int)percent;
                 }
                 else
                 {
-                    percent += (100.0 / dllCount);
+                    percent += (100.0 / araKatman.DLLCounter());
                     mainProgressBar.Value = (int)percent;
                 }
                 counter++;
@@ -93,7 +98,7 @@ namespace APIProje
                 mainLayout.MaximumSize = new Size(mainLayout.Width, mainLayout.Height);
                 mainLayout.AutoScroll = true;
             });
-            
+
         }
 
         private void LayoutTemizle()
@@ -109,24 +114,6 @@ namespace APIProje
             mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             mainLayout.ColumnCount = 2; // 2 column
-        }
-
-
-        private void mainForm_Load(object sender, EventArgs e)
-        {
-            dllCount = araKatman.DLLCounter();
-            lblDll.Text = "DLL Sayısı: " + dllCount;
-        }
-
-        private void bilgilerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AnaForm anaForm = new AnaForm();
-            anaForm.Show();
         }
     }
 }

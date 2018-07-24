@@ -37,7 +37,7 @@ namespace APIProje.Sınıflar
                 .WithSimpleSchedule(x => x.WithIntervalInSeconds(Convert.ToInt32(settingsList[2])).RepeatForever())
                 .Build();
 
-                job.JobDataMap.Put("mainForm", mainForm.ActiveForm);
+                job.JobDataMap.Put("mainForm", AnaForm.ActiveForm);
 
                 JobSettings(job);
 

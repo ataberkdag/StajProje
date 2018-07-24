@@ -299,9 +299,6 @@ C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\bin\Debug\System
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\bin\Debug\TweetSharp.pdb
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.csprojResolveAssemblyReference.cache
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.exe.config
-C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.Form1.resources
-C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.FormSettings.resources
-C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.mainForm.resources
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.Properties.Resources.resources
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.csproj.GenerateResource.cache
 C:\Users\ataberk.dagdelen\Documents\StajProje\APIProje\APIProje\obj\Debug\APIProje.csproj.CoreCompileInputs.cache

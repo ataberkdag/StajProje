@@ -26,7 +26,7 @@ namespace APIProje
 
         public ListAPI Social { get; set; }
 
-        public enum searchType
+        public enum searchTypeEnum
         {
             word = 1,
             user = 2
@@ -54,12 +54,12 @@ namespace APIProje
             }
             else if (!string.IsNullOrEmpty(searchUser))
             {
-                getDataFromDLL(searchUser, Convert.ToInt32(searchType.user));
+                getDataFromDLL(searchUser, Convert.ToInt32(searchTypeEnum.user));
             }
             else if (!string.IsNullOrEmpty(searchWord))
             {
-                Console.WriteLine(Convert.ToInt32(searchType.word));
-                getDataFromDLL(searchWord, Convert.ToInt32(searchType.word));
+                Console.WriteLine(Convert.ToInt32(searchTypeEnum.word));
+                getDataFromDLL(searchWord, Convert.ToInt32(searchTypeEnum.word));
             }
         }
 
@@ -113,14 +113,18 @@ namespace APIProje
                 Task<DataTable> taskKeyword;
                 try
                 {
-                    if (searchType == 1) taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+                    if (searchType == Convert.ToInt32(searchTypeEnum.word))
+                        taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+
                     else taskKeyword = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(keyword));
                 }
                 catch (Exception)
                 {
                     lock (deadLockController)
                     {
-                        if (searchType == 1) taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+                        if (searchType == Convert.ToInt32(searchTypeEnum.word))
+                            taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
+
                         else taskKeyword = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(keyword));
                     }
                 }

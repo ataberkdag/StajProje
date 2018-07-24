@@ -23,6 +23,13 @@ namespace APIProje.Sınıflar
             Stop = 2
         }
 
+        public enum aramaTuruEnum
+        {
+            Kelime = 1,
+            Kullanıcı = 2,
+            Tümü = 3
+        }
+
         public async void SearchAll(string jobType)
         {
             aramaDurumu = true;
@@ -60,17 +67,17 @@ namespace APIProje.Sınıflar
             string word = searchSett.searchWord;
             string user = searchSett.searchUser;
 
-            if (AramaTuru == "Kelime" && !string.IsNullOrEmpty(word))
+            if (AramaTuru == aramaTuruEnum.Kelime.ToString() && !string.IsNullOrEmpty(word))
             {
                 job.JobDataMap.Put("searchWord", word);
                 job.JobDataMap.Put("searchUser", "");
             }
-            else if (AramaTuru == "Kullanıcı" && !string.IsNullOrEmpty(user))
+            else if (AramaTuru == aramaTuruEnum.Kullanıcı.ToString() && !string.IsNullOrEmpty(user))
             {
                 job.JobDataMap.Put("searchUser", user);
                 job.JobDataMap.Put("searchWord", "");
             }
-            else if (AramaTuru == "Tümü" && (!string.IsNullOrEmpty(word) && !string.IsNullOrEmpty(user)))
+            else if (AramaTuru == aramaTuruEnum.Tümü.ToString() && (!string.IsNullOrEmpty(word) && !string.IsNullOrEmpty(user)))
             {
                 job.JobDataMap.Put("searchWord", word);
                 job.JobDataMap.Put("searchUser", user);

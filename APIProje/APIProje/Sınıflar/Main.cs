@@ -138,8 +138,8 @@ namespace APIProje
             MainForm.counter = 0;
             MainForm.dataCount = 0;
             MainForm.tekrarSayısı++;
-            mainClassEvent += MainForm.AddToGrid; // Event eklendi.
 
+            mainClassEvent += MainForm.AddToGrid; // Event eklendi.
             taskControl.taskEvent += CreateDataGridView; // Event eklendi.
             
             string searchWord = dataMap.Get("searchWord").ToString(); //

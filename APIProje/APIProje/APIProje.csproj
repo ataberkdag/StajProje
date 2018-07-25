@@ -148,6 +148,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sınıflar\SearchSettings.cs" />
     <Compile Include="Sınıflar\settingsClass.cs" />
+    <Compile Include="Sınıflar\StatikTaskControl.cs" />
     <Compile Include="Sınıflar\TaskControl.cs" />
     <Compile Include="Sınıflar\Veritabanı.cs" />
     <EmbeddedResource Include="AnaForm.resx">

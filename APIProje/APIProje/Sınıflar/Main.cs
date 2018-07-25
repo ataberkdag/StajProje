@@ -17,15 +17,15 @@ namespace APIProje
         public event mainClassDel mainClassEvent;
 
         static object deadLockController = new object();
-        private Sınıflar.TaskControl taskControl = new Sınıflar.TaskControl();
 
         private CompositionContainer _container;
-        //asdasdasd
+        
         [ImportMany(typeof(ListAPI))]
         public IEnumerable<Lazy<ListAPI>> dllFiles;
 
         public ListAPI Social { get; set; }
 
+        private int donusSayisi = 0;
         public enum searchTypeEnum
         {
             word = 1,
@@ -38,7 +38,10 @@ namespace APIProje
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(Program).Assembly));
             catalog.Catalogs.Add(new DirectoryCatalog("C:\\Users\\ataberk.dagdelen\\Documents\\StajProje\\APIProje\\APIProje\\Eklentiler"));
             _container = new CompositionContainer(catalog);
-
+            Sınıflar.StatikTaskControl.taskEvent -= CreateDataGridView;
+            Sınıflar.StatikTaskControl.taskEvent += CreateDataGridView; // Event eklendi.
+            Console.WriteLine(donusSayisi);
+            donusSayisi++;
             try
             {
                 this._container.ComposeParts(this);
@@ -79,15 +82,14 @@ namespace APIProje
                         taskUser = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(user));
                     }
                 }
-                taskControl.AddToQueue(taskUser);
+                Sınıflar.StatikTaskControl.AddToQueue(taskUser);
             }
-            while (taskControl.GetRunningTaskCount() != 0) { }
+            while (Sınıflar.StatikTaskControl.GetRunningTaskCount() != 0) { }
             datasKeyword(keyword);
         }
 
         private void datasKeyword(string keyword)
         {
-            taskControl.controller = 1;
             foreach (var dllFile in dllFiles)
             {
                 Task<DataTable> taskKeyword;
@@ -102,7 +104,7 @@ namespace APIProje
                         taskKeyword = new Task<DataTable>(() => dllFile.Value.KelimeAra(keyword));
                     }
                 }
-                taskControl.AddToQueue(taskKeyword);
+                Sınıflar.StatikTaskControl.AddToQueue(taskKeyword);
             }
         }
 
@@ -128,7 +130,7 @@ namespace APIProje
                         else taskKeyword = new Task<DataTable>(() => dllFile.Value.KullanıcıAra(keyword));
                     }
                 }
-                taskControl.AddToQueue(taskKeyword);
+                Sınıflar.StatikTaskControl.AddToQueue(taskKeyword);
             }
         }
 
@@ -144,8 +146,8 @@ namespace APIProje
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var dataMap = context.MergedJobDataMap; 
-            taskControl.SetMaxThread(6);
+            var dataMap = context.MergedJobDataMap;
+            Sınıflar.StatikTaskControl.SetMaxThread(6);
             
             AnaForm MainForm = (AnaForm)dataMap.Get("mainForm");
             MainForm.percent = 0;
@@ -154,7 +156,7 @@ namespace APIProje
             MainForm.tekrarSayısı++;
 
             mainClassEvent += MainForm.AddToGrid; // Event eklendi.
-            taskControl.taskEvent += CreateDataGridView; // Event eklendi.
+            
             
             string searchWord = dataMap.Get("searchWord").ToString(); //
             string searchUser = dataMap.Get("searchUser").ToString(); // Kelimeler formdan alındı.

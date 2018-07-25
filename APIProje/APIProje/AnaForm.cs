@@ -66,7 +66,7 @@ namespace APIProje
             dataCount++;
 
             LayoutEkle(dataGridView);
-            ProgressBarEkle();
+            //ProgressBarEkle();
 
             lblVeri.BeginInvoke((ThreadStart)delegate ()
             {
@@ -95,6 +95,8 @@ namespace APIProje
                     percent += (100.0 / araKatman.DLLCounter());
                     mainProgressBar.Value = (int)percent;
                 }
+
+                if (mainProgressBar.Value == 100) mainProgressBar.Value = 0;
                 counter++;
             });
         }

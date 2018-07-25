@@ -55,7 +55,7 @@ namespace APIProje.Sınıflar
 
                 JobSettings(job);
 
-                if (aramaDurumu == true) sched.ScheduleJob(job, trigger);
+                if (aramaDurumu == true) sched.ScheduleJob(job, trigger); Sınıflar.StatikTaskControl.TaramayiBaslat();
             }
             else sched.Shutdown();
 

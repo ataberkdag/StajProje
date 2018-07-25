@@ -19,6 +19,13 @@ namespace APIProje
             Stop = 2
         }
 
+        public enum searchType
+        {
+            Kelime = 1,
+            Kullanıcı = 2,
+            Tümü = 3
+        }
+
         private Sınıflar.AraKatman araKatman = new Sınıflar.AraKatman();
         public double percent = 0;
         public int counter = 0;
@@ -78,7 +85,7 @@ namespace APIProje
                     mainProgressBar.Value = 0;
                 }
 
-                if (araKatman.AramaTuru == "Tümü")
+                if (araKatman.AramaTuru == searchType.Tümü.ToString())
                 {
                     percent += (50.0 / araKatman.DLLCounter());
                     mainProgressBar.Value = (int)percent;

@@ -20,7 +20,7 @@ namespace APIProje
         private Sınıflar.TaskControl taskControl = new Sınıflar.TaskControl();
 
         private CompositionContainer _container;
-
+        //asdasdasd
         [ImportMany(typeof(ListAPI))]
         public IEnumerable<Lazy<ListAPI>> dllFiles;
 

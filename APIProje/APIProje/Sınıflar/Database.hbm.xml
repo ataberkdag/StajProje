@@ -8,5 +8,4 @@
     <property name="Type" column="type"/>
     
   </class>
-  
 </hibernate-mapping>

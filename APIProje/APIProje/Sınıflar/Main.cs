@@ -160,7 +160,6 @@ namespace APIProje
             string searchUser = dataMap.Get("searchUser").ToString(); // Kelimeler formdan alındı.
 
             SelectSearchType(searchWord, searchUser);
-        }
-        
+        } 
     }
 }
